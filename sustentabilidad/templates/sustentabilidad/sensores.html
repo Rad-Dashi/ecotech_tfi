@@ -1,0 +1,109 @@
+{% extends 'sustentabilidad/base.html' %}
+
+{% block contenido %}
+<div class="tarjeta">
+    <h2>Monitoreo y mapeo estadístico</h2>
+    <form method="GET" style="margin-bottom: 15px;">
+        <label><strong>Umbral de alerta (ºC):</strong></label>
+        <input type="text" name="umbral" value="{{ umbral }}">
+        <button type="submit" class="btn-guardar">Recalcular umbral</button>
+    </form>
+
+    {% if promedio_global is not None %}
+        <p><strong>Promedio térmico global:</strong> {{ promedio_global }} ºC</p>
+        <p><strong>Sensores que superan el umbral ({{ alertas|length }}):</strong>
+            {% if alertas %}{{ alertas|join:", " }}{% else %}Ninguno en alerta{% endif %}
+        </p>
+    {% else %}
+        <p><em>Ingresa un valor de umbral numérico válido para generar el resumen estadístico.</em></p>
+    {% endif %}
+</div>
+
+<div class="tarjeta">
+    <h3>Agregar nueva lectura de sensor</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="crear">
+        <input type="text" name="sensor_id" placeholder="ID (ej: SENSOR-015)">
+        <input type="text" name="temperatura" placeholder="Temp (ej: 34.5C o 95F)">
+        <input type="text" name="ubicacion" placeholder="Ubicación (opcional)">
+        <button type="submit" class="btn-crear">Agregar sensor</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h2>Registros de sensores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Datos ingresados</th>
+                <th>Datos procesados</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in tabla_comparativa %}
+            <tr class="{% if item.en_alerta %}fila-alerta{% endif %}">
+                <td>
+                    <strong>ID:</strong> {{ item.crudo.sensor_id }}<br>
+                    <strong>Temp:</strong> {{ item.crudo.temperatura }}<br>
+                    <strong>Ubicación:</strong> {{ item.crudo.ubicacion }}
+                </td>
+                <td>
+                    <strong>ID:</strong> <code>{{ item.limpio.sensor_id }}</code><br>
+                    <strong>Temp:</strong> <code>{{ item.limpio.temperatura }}ºC</code><br>
+                    <strong>Ubicación:</strong> <code>{{ item.limpio.ubicacion }}</code>
+                </td>
+                <td>
+                    <!-- Botón que activa la ventana modal -->
+                    <button type="button" class="btn-guardar btn-editar-sensor"
+                            data-indice="{{ item.indice }}"
+                            data-id="{{ item.crudo.sensor_id }}"
+                            data-temp="{{ item.crudo.temperatura }}"
+                            data-ubic="{{ item.crudo.ubicacion }}">Actualizar</button>
+
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="accion" value="eliminar">
+                        <input type="hidden" name="indice" value="{{ item.indice }}">
+                        <button type="submit" class="btn-borrar">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Ventana Modal de Actualización -->
+<dialog id="modal-editar-sensor">
+    <div class="modal-header">
+        <h3>Actualizar registro</h3>
+        <button type="button" class="btn-cerrar" onclick="document.getElementById('modal-editar-sensor').close()">&times;</button>
+    </div>
+    <form method="POST" class="formulario-modal">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="actualizar">
+        <input type="hidden" name="indice" id="edit-sensor-indice">
+        <label>ID del Sensor:</label>
+        <input type="text" name="sensor_id" id="edit-sensor-id">
+        <label>Temperatura:</label>
+        <input type="text" name="temperatura" id="edit-sensor-temp">
+        <label>Ubicación:</label>
+        <input type="text" name="ubicacion" id="edit-sensor-ubic">
+        <button type="submit" class="btn-guardar">Guardar cambios</button>
+    </form>
+</dialog>
+
+<script>
+    document.querySelectorAll('.btn-editar-sensor').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('edit-sensor-indice').value = btn.dataset.indice;
+            document.getElementById('edit-sensor-id').value = btn.dataset.id;
+            document.getElementById('edit-sensor-temp').value = btn.dataset.temp;
+            document.getElementById('edit-sensor-ubic').value = btn.dataset.ubic;
+            document.getElementById('modal-editar-sensor').showModal();
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoTech Solutions - Panel de control</title>
+    <link rel="stylesheet" href="{% static 'sustentabilidad/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>EcoTech Solutions — Panel de control</h1>
+    </header>
+
+    <nav class="tabs">
+        <a href="{% url 'vista_sensores' %}" class="{% if pestana_activa == 'sensores' %}activa{% endif %}">
+            Sensores térmicos
+        </a>
+        <a href="{% url 'vista_catalogo' %}" class="{% if pestana_activa == 'catalogo' %}activa{% endif %}">
+            Catálogo y stock
+        </a>
+        <a href="{% url 'vista_panel_sustentabilidad' %}" class="{% if pestana_activa == 'emisiones' %}activa{% endif %}">
+            Huella de carbono
+        </a>
+    </nav>
+
+    <div class="contenedor">
+        {% block contenido %}{% endblock %}
+    </div>
+
+    <!-- Contenedor fijo para los Pop-ups en la parte inferior -->
+    <div id="toast-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alerta alerta-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Script para mantener la posición de la página y limpiar pop-ups -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Recuperar y aplicar la posición del scroll si existe
+            let posicionScroll = sessionStorage.getItem("scrollPosition");
+            if (posicionScroll) {
+                window.scrollTo(0, parseInt(posicionScroll));
+                sessionStorage.removeItem("scrollPosition"); // Limpiar memoria
+            }
+
+            // 2. Eliminar completamente las notificaciones emergentes del sistema después de 4.5 segundos
+            const alertas = document.querySelectorAll('.alerta');
+            setTimeout(() => {
+                alertas.forEach(alerta => alerta.remove());
+            }, 4500);
+        });
+
+        // 3. Guardar la posición actual de la pantalla justo antes de recargar la página (al hacer submit/borrar/actualizar)
+        window.addEventListener("beforeunload", function() {
+            sessionStorage.setItem("scrollPosition", window.scrollY);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% extends 'sustentabilidad/base.html' %}
+
+{% block contenido %}
+<div class="tarjeta">
+    <h2>Alta de dispositivos</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="crear">
+        <select name="tipo_clase">
+            <option value="estandar">Dispositivo estándar</option>
+            <option value="panel_solar">Panel solar</option>
+        </select>
+        <input type="text" name="id_producto" placeholder="ID (ej: PS-200)">
+        <input type="text" name="nombre" placeholder="Nombre comercial">
+        <input type="text" name="precio" placeholder="Precio" style="width:110px;">
+        <input type="text" name="stock" placeholder="Stock" style="width:110px;">
+        <input type="text" name="eficiencia" placeholder="Eficiencia %" style="width:110px;">
+        <input type="text" name="potencia_w" placeholder="Potencia W" style="width:110px;">
+        <button type="submit" class="btn-crear">Guardar producto</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h2>Ficha técnica actual</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Datos del producto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prod in catalogo %}
+            <tr>
+                <td>
+                    <strong>{{ prod.id_producto }} — {{ prod.nombre }}</strong><br>
+                    Tipo: {{ prod.tipo }} | Precio: {{ prod.precio }} | <strong>Stock: {{ prod.stock }}</strong>
+                    {% if prod.potencia_w %}
+                        <br>Potencia: {{ prod.potencia_w }} | Eficiencia: {{ prod.eficiencia }}
+                    {% endif %}
+                </td>
+                <td>
+                    <button type="button" class="btn-guardar btn-editar-cat"
+                            data-indice="{{ forloop.counter0 }}"
+                            data-tipo="{% if prod.potencia_w %}panel_solar{% else %}estandar{% endif %}"
+                            data-id="{{ prod.id_producto }}"
+                            data-nombre="{{ prod.nombre }}"
+                            data-precio="{{ prod.precio }}"
+                            data-stock="{{ prod.stock }}"
+                            data-efi="{{ prod.eficiencia|default:'' }}"
+                            data-pot="{{ prod.potencia_w|default:'' }}">Actualizar</button>
+
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="accion" value="eliminar">
+                        <input type="hidden" name="indice" value="{{ forloop.counter0 }}">
+                        <button type="submit" class="btn-borrar">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<dialog id="modal-editar-catalogo">
+    <div class="modal-header">
+        <h3>Actualizar producto</h3>
+        <button type="button" class="btn-cerrar" onclick="document.getElementById('modal-editar-catalogo').close()">&times;</button>
+    </div>
+    <form method="POST" class="formulario-modal">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="actualizar">
+        <input type="hidden" name="indice" id="edit-cat-indice">
+        <input type="hidden" name="tipo_clase" id="edit-cat-tipo">
+
+        <label>ID del Producto:</label>
+        <input type="text" name="id_producto" id="edit-cat-id">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" id="edit-cat-nombre">
+        <label>Precio:</label>
+        <input type="text" name="precio" id="edit-cat-precio">
+        <label>Stock:</label>
+        <input type="text" name="stock" id="edit-cat-stock">
+        <label>Eficiencia % (Solo paneles):</label>
+        <input type="text" name="eficiencia" id="edit-cat-efi">
+        <label>Potencia W (Solo paneles):</label>
+        <input type="text" name="potencia_w" id="edit-cat-pot">
+        <button type="submit" class="btn-guardar">Guardar cambios</button>
+    </form>
+</dialog>
+
+<script>
+    document.querySelectorAll('.btn-editar-cat').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const d = btn.dataset;
+            document.getElementById('edit-cat-indice').value = d.indice;
+            document.getElementById('edit-cat-tipo').value = d.tipo;
+            document.getElementById('edit-cat-id').value = d.id;
+            document.getElementById('edit-cat-nombre').value = d.nombre;
+            document.getElementById('edit-cat-precio').value = d.precio;
+            document.getElementById('edit-cat-stock').value = d.stock;
+            document.getElementById('edit-cat-efi').value = d.efi;
+            document.getElementById('edit-cat-pot').value = d.pot;
+            document.getElementById('modal-editar-catalogo').showModal();
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'sustentabilidad/base.html' %}
+
+{% block contenido %}
+<div class="tarjeta">
+    <h2>Panel de sustentabilidad y huella de carbono</h2>
+    <p><strong>Total global de emisiones:</strong> {{ total_emisiones }} kg CO2e</p>
+    <p><strong>Planta industrial de mayor consumo:</strong> {{ planta_mayor_consumo }}</p>
+</div>
+
+<div class="tarjeta">
+    <h3>Registrar consumo de planta</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="agregar_planta">
+        <input type="text" name="planta" placeholder="Planta industrial">
+        <input type="text" name="consumo_kwh" placeholder="Consumo kWh">
+        <button type="submit" class="btn-crear">Calcular y registrar</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h3>Historial de consumo por planta</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Planta industrial</th>
+                <th>Consumo (kWh)</th>
+                <th>Emisiones calculadas (factor 0.4)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalle_plantas %}
+            <tr>
+                <td>{{ item.planta }}</td>
+                <td>{{ item.consumo_kwh }} kWh</td>
+                <td><strong>{{ item.emision }} kg CO2e</strong></td>
+                <td>
+                    <button type="button" class="btn-guardar btn-editar-planta"
+                            data-indice="{{ item.indice }}"
+                            data-planta="{{ item.planta }}"
+                            data-consumo="{{ item.consumo_kwh }}">Actualizar</button>
+
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="accion" value="eliminar_planta">
+                        <input type="hidden" name="indice" value="{{ item.indice }}">
+                        <button type="submit" class="btn-borrar">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<dialog id="modal-editar-planta">
+    <div class="modal-header">
+        <h3>Actualizar registro de planta</h3>
+        <button type="button" class="btn-cerrar" onclick="document.getElementById('modal-editar-planta').close()">&times;</button>
+    </div>
+    <form method="POST" class="formulario-modal">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="actualizar_planta">
+        <input type="hidden" name="indice" id="edit-planta-indice">
+        <label>Nombre de la planta:</label>
+        <input type="text" name="planta" id="edit-planta-nombre">
+        <label>Consumo (kWh):</label>
+        <input type="text" name="consumo_kwh" id="edit-planta-consumo">
+        <button type="submit" class="btn-guardar">Guardar cambios</button>
+    </form>
+</dialog>
+
+<script>
+    document.querySelectorAll('.btn-editar-planta').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('edit-planta-indice').value = btn.dataset.indice;
+            document.getElementById('edit-planta-nombre').value = btn.dataset.planta;
+            document.getElementById('edit-planta-consumo').value = btn.dataset.consumo;
+            document.getElementById('modal-editar-planta').showModal();
+        });
+    });
+</script>
+{% endblock %}

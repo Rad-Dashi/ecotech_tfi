@@ -1,0 +1,29 @@
+# Entorno virtual de Python
+venv/
+env/
+ENV/
+.venv/
+
+# Variables de entorno y configuraciones privadas
+.env
+.env.local
+
+# Archivos de caché y compilación de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Base de datos interna de Django
+*.sqlite3
+db.sqlite3
+
+# Archivos de caché de pruebas y testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configuraciones del editor (VS Code)
+.vscode/
+
+# Archivos obsoletos
+deprecated/

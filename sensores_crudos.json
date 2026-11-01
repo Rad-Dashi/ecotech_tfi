@@ -1,0 +1,62 @@
+[
+    {
+        "sensor_id": " SENSOR-001 ",
+        "temperatura": "24.5C",
+        "ubicacion": "Planta Sur"
+    },
+    {
+        "sensor_id": "SENSOR-002   ",
+        "temperatura": "35.0 c",
+        "ubicacion": "   "
+    },
+    {
+        "sensor_id": "  SENSOR-003",
+        "temperatura": "31.2°c",
+        "ubicacion": "Sector Químico"
+    },
+    {
+        "sensor_id": "SENSOR-004 ",
+        "temperatura": "ERROR_LECTURA",
+        "ubicacion": ""
+    },
+    {
+        "sensor_id": "SENSOR-005",
+        "temperatura": 28,
+        "ubicacion": "  Almacén Central  "
+    },
+    {
+        "sensor_id": "   SENSOR-006   ",
+        "temperatura": 33.8,
+        "ubicacion": "Sala de Calderas"
+    },
+    {
+        "sensor_id": "SENSOR-007",
+        "temperatura": " 19.4 °C ",
+        "ubicacion": "Laboratorio I+D"
+    },
+    {
+        "sensor_id": " SENSOR-008",
+        "temperatura": "42.1F",
+        "ubicacion": "Planta Sur"
+    },
+    {
+        "sensor_id": "SENSOR-009  ",
+        "temperatura": "---",
+        "ubicacion": "Área industrial"
+    },
+    {
+        "sensor_id": "SENSOR-010",
+        "temperatura": "29.9c",
+        "ubicacion": "Sector Ensamblaje"
+    },
+    {
+        "sensor_id": "SENSOR-012",
+        "temperatura": "N/A",
+        "ubicacion": "Subestación Eléctrica"
+    },
+    {
+        "sensor_id": "SENSOR-015",
+        "temperatura": "34.5",
+        "ubicacion": "Sector Ensamblaje"
+    }
+]

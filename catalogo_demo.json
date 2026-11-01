@@ -1,0 +1,18 @@
+[
+    {
+        "id_producto": "PS-100",
+        "nombre": "Panel Solar EcoMax",
+        "precio": "$250.50",
+        "stock": 15,
+        "tipo": "Panel Solar Fotovoltaico",
+        "potencia_w": "450.0W",
+        "eficiencia": "22.5%"
+    },
+    {
+        "id_producto": "BAT-01",
+        "nombre": "Batería Reciclable",
+        "precio": "$180.00",
+        "stock": 8,
+        "tipo": "Dispositivo Estándar"
+    }
+]

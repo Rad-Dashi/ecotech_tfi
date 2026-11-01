@@ -1,0 +1,167 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1b4332;
+    color: white;
+    padding: 15px 30px;
+}
+
+/* Barra de Pestañas */
+nav.tabs {
+    background-color: #2d6a4f;
+    display: flex;
+    padding: 0 30px;
+}
+
+nav.tabs a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-weight: bold;
+    border-bottom: 4px solid transparent;
+}
+
+nav.tabs a:hover {
+    background-color: #40916c;
+}
+
+nav.tabs a.activa {
+    background-color: #f4f7f6;
+    color: #1b4332;
+    border-bottom: 4px solid #1b4332;
+}
+
+.contenedor {
+    max-width: 1150px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+/* Contenedor de Notificaciones Emergentes (Pop-ups) */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.alerta {
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    /* Animación de entrada y salida */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: mostrarToast 0.4s forwards, ocultarToast 0.4s forwards 4s;
+    max-width: 400px;
+}
+
+/* Animaciones para que el mensaje suba al aparecer y baje al desaparecer */
+@keyframes mostrarToast {
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ocultarToast {
+    to { opacity: 0; transform: translateY(30px); }
+}
+
+.alerta-error {
+    background-color: #f8d7da;
+    color: #842029;
+    border-left: 6px solid #842029;
+}
+
+.alerta-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-left: 6px solid #0f5132;
+}
+
+/* Tarjetas y Tablas */
+.tarjeta {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #e9f5ee;
+    color: #1b4332;
+}
+
+.fila-alerta {
+    background-color: #fff3cd;
+}
+
+input, select, button {
+    padding: 8px 10px;
+    margin: 4px 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-crear { background-color: #2d6a4f; color: white; border: none; }
+.btn-guardar { background-color: #0d6efd; color: white; border: none; }
+.btn-borrar { background-color: #dc3545; color: white; border: none; }
+
+/* Estilos para ventanas modales (Actualizar) */
+dialog {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 25px;
+    max-width: 450px;
+    width: 100%;
+}
+dialog::backdrop {
+    background-color: rgba(0,0,0,0.6);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.modal-header h3 { margin: 0; }
+.btn-cerrar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+.formulario-modal input, .formulario-modal select {
+    width: 95%;
+    display: block;
+    margin-bottom: 12px;
+}

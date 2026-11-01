@@ -1,0 +1,33 @@
+[
+    {
+        "id_producto": "PS-100",
+        "nombre": "Panel Solar EcoMax",
+        "precio": "$250.50",
+        "stock": 16,
+        "tipo": "Panel Solar Fotovoltaico",
+        "potencia_w": "450.0W",
+        "eficiencia": "22.5%"
+    },
+    {
+        "id_producto": "BAT-01",
+        "nombre": "Batería de Litio Reciclable",
+        "precio": "$180.00",
+        "stock": 8
+    },
+    {
+        "id_producto": "PS-200",
+        "nombre": "MacroTech",
+        "precio": "$310.50",
+        "stock": 5,
+        "tipo": "Dispositivo Estándar"
+    },
+    {
+        "id_producto": "PS-150",
+        "nombre": "MacroTech",
+        "precio": "$250.50",
+        "stock": 5,
+        "tipo": "Panel Solar Fotovoltaico",
+        "potencia_w": "500.0W",
+        "eficiencia": "22.5%"
+    }
+]
