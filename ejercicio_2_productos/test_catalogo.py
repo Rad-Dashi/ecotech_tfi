@@ -1,6 +1,6 @@
 import json
 import pytest
-from sustentabilidad.logica_catalogo import (
+from ejercicio_2_productos.logica_catalogo import (
     StockInvalidoError,
     DispositivoEcologico,
     PanelSolar,

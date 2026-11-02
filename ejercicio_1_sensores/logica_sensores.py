@@ -1,7 +1,9 @@
 import json
 import os
+from pathlib import Path
 
-RUTA_SENSORES_JSON = "sensores_crudos.json"
+BASE_DIR = Path(__file__).resolve().parent
+RUTA_SENSORES_JSON = BASE_DIR / "sensores_crudos.json"
 
 
 # --- PUNTO 1.A: Normalización de Lecturas ---

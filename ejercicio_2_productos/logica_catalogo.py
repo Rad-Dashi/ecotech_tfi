@@ -1,7 +1,10 @@
 import json
 import os
 
-RUTA_CATALOGO_JSON = "catalogo_ecotech.json"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+RUTA_CATALOGO_JSON = BASE_DIR / "catalogo_ecotech.json"
 
 
 # --- PASO 2.1: Excepción Personalizada ---
@@ -105,5 +108,5 @@ if __name__ == "__main__":
     except StockInvalidoError as error:
         print(f"Advertencia controlada: {error}")
 
-    GestorInventario().guardar_catalogo_json([panel, bateria], "catalogo_demo.json")
+    GestorInventario().guardar_catalogo_json([panel, bateria], BASE_DIR / "catalogo_demo.json")
     print("Catálogo exportado correctamente.")

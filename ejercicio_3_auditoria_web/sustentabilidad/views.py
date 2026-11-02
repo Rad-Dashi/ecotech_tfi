@@ -2,19 +2,19 @@ import re # Para usar expresiones regulares en la limpieza de registros de senso
 from django.shortcuts import render, redirect
 from django.contrib import messages # Para enviar alertas de éxito (message.success) o error (message.error) cuando el usuario realiza una acción no permitida
 
-from .logica_sensores import (
+from ejercicio_1_sensores.logica_sensores import (
     limpiar_registro_sensor,
     generar_resumen_sensores,
     leer_sensores_crudos,
     guardar_sensores_crudos,
 )
-from .logica_catalogo import (
+from ejercicio_2_productos.logica_catalogo import (
     StockInvalidoError,
     DispositivoEcologico,
     PanelSolar,
     GestorInventario,
 )
-from .logica_emisiones import (
+from ejercicio_3_auditoria_web.logica_emisiones import (
     calcular_emisiones_carbono,
     obtener_metricas_consumo,
 )

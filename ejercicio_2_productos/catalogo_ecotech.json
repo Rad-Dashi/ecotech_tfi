@@ -12,7 +12,8 @@
         "id_producto": "BAT-01",
         "nombre": "Batería de Litio Reciclable",
         "precio": "$180.00",
-        "stock": 8
+        "stock": 8,
+        "tipo": "Dispositivo Estándar"
     },
     {
         "id_producto": "PS-200",
@@ -22,12 +23,10 @@
         "tipo": "Dispositivo Estándar"
     },
     {
-        "id_producto": "PS-150",
+        "id_producto": "PS-1001",
         "nombre": "MacroTech",
         "precio": "$250.50",
         "stock": 5,
-        "tipo": "Panel Solar Fotovoltaico",
-        "potencia_w": "500.0W",
-        "eficiencia": "22.5%"
+        "tipo": "Dispositivo Estándar"
     }
 ]

@@ -58,5 +58,10 @@
         "sensor_id": "SENSOR-015",
         "temperatura": "34.5",
         "ubicacion": "Sector Ensamblaje"
+    },
+    {
+        "sensor_id": "SENSOR-009  ",
+        "temperatura": "95F",
+        "ubicacion": "Área Química"
     }
 ]

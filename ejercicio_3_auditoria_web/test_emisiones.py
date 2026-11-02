@@ -1,5 +1,5 @@
 import pytest
-from sustentabilidad.logica_emisiones import (
+from ejercicio_3_auditoria_web.logica_emisiones import (
     calcular_emisiones_carbono,
     obtener_metricas_consumo,
 )

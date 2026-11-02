@@ -1,4 +1,4 @@
-from sustentabilidad.logica_sensores import (
+from ejercicio_1_sensores.logica_sensores import (
     limpiar_registro_sensor,
     generar_resumen_sensores,
 )
